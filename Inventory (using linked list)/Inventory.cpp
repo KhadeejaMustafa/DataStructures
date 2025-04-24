@@ -98,75 +98,75 @@ void Inventory::updateProduct(int id, int quantity, double price) {
 	}
 }
 
-void Inventory::addProduct(string name, int id, int quantity, double price){
+void Inventory::addProduct(string name, int id, int quantity, double price) {
 	Node *newNode = new Node;
 	newNode->setId(id);
 	newNode->setName(name);
 	newNode->setPrice(price);
 	newNode->setNext(NULL);
 	newNode->setQuantity(quantity);
-	
-	
-	if(head == NULL){
+
+
+	if(head == NULL) {
 		head = newNode;
-	}
-	else{
+	} else {
 		Node *last = head;
-		while(last->getNext() != NULL){
+		while(last->getNext() != NULL) {
 			last = last->getNext();
 		}
 		last->setNext(newNode);
 	}
-	cout << "Product Added Successfully." << endl;
+	cout << endl << "-+-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-" << endl;
+	cout << endl << "Product Added Successfully." << endl << endl;
 }
 
 // remove Product function
-void Inventory::removeProduct(int id){
-	if(head == NULL){
+void Inventory::removeProduct(int id) {
+	if(head == NULL) {
 		cout << "Inventory is Empty." << endl;
 		return;
 	}
-	
-	if(head->getId() == id){
+
+	if(head->getId() == id) {
 		Node *temp = head;
 		head = head->getNext();
 		delete temp;
-		
+
 		cout << "Product removed from Inventory." << endl;
 		return;
 	}
-	
+
 	Node* newNode = head;
-	while(newNode->getNext() != NULL){
-	if(newNode->getNext()->getId() == id){
-		Node *temp = newNode->getNext();
-		newNode->setNext(newNode->getNext()->getNext());
-		delete temp;
-		cout << "product removed from Inventory." << endl;
-		return;
-	}
-	newNode = newNode->getNext();
+	while(newNode->getNext() != NULL) {
+		if(newNode->getNext()->getId() == id) {
+			Node *temp = newNode->getNext();
+			newNode->setNext(newNode->getNext()->getNext());
+			delete temp;
+			cout << "product removed from Inventory." << endl;
+			return;
+		}
+		newNode = newNode->getNext();
 	}//end of while.
-	
+
 	cout << "Product not found in Inventory." << endl;
 }//end of remove product function
 
 
 //show function
-void show(){
+void show() {
 	cout << "Inventory: " << endl;
 	cout << "Name" << "\t" << "ID" << "\t" << "Quantity" << "\t" << "Price" << endl;
 }
 
 //display Inventory function
-void Inventory::displayInventory(){
-	if(head == NULL){
+void Inventory::displayInventory() {
+	if(head == NULL) {
 		cout << "Inventory is empty." << endl;
 		return;
 	}
 	show();
 	Node *newNode = head;
-	while(newNode != NULL){
+	while(newNode != NULL) {
 		cout << newNode->getName() << "\t" << newNode->getId() <<"\t" << newNode->getQuantity() << "\t\t" << newNode->getPrice();
 		cout << endl;
 		newNode = newNode->getNext();
@@ -174,79 +174,80 @@ void Inventory::displayInventory(){
 }
 
 
-main() {
-Inventory myInventory;
-int choice, id, quantity, products;
-string name;
-double price;
+int main() {
+	Inventory myInventory;
+	int choice, id, quantity, products;
+	string name;
+	double price;
 
-do{
-	cout << "Please choose an Action: " << endl;
-	cout << "1. Add Product" << endl;
-	cout << "2. Remove Product" << endl;
-	cout << "3. Update Product" << endl;
-	cout << "4. Display Inventory" << endl;
-	cout << "0. Exit" << endl;
-	
-	cout << "Enter your Choice: ";
-	cin >> choice;
-	
-		
-	switch(choice){
-	case 1:
-		cout << "How many products do you want to add?";
-		cin >> products;
-		
-		for(int i = 0; i < products; i++){
-			cout << "Enter product name: ";
-			cin >> name;
-			
-			cout << "Enter product ID: ";
-			cin >> id;
-			
-			cout << "Enter product Quantity: ";
-			cin >> quantity;
-			
-			cout << "Enter product Price: ";
-			cin >> price;
-		myInventory.addProduct(name, id, quantity, price);	
-			
-		}//end of for loop
-		
-	break;
-	
-	case 2:
-		cout << "Enter product ID to remove: ";
-		cin >> id;
-		myInventory.removeProduct(id);
-	break;
-	
-	case 3:
-		cout << "Enter product ID to Update: ";
-		cin >> id;
-		
-		cout << "Enter new Quantity: ";
-		cin >> quantity;
-		
-		cout << "Enter new Price: ";
-		cin >> price;
-		
-		myInventory.updateProduct(id, quantity, price);
-	break;
-	
-	case 4:
-		myInventory.displayInventory();
-	break;
-	
-	case 0:
-		cout << "Exit Program";
-	    break;	
+	do {
+		cout << "Please choose an action to perform: " << endl;
+		cout << "1. Add Product" << endl;
+		cout << "2. Remove Product" << endl;
+		cout << "3. Update Product" << endl;
+		cout << "4. Display Inventory" << endl;
+		cout << "0. Exit" << endl;
 
-}//end of switch statement
-cout << endl;
-}
+		cout << "Enter your Choice Number: ";
+		cin >> choice;
 
-while(choice != 0);
-return 0;
-	
+
+		switch(choice) {
+			case 1:
+				cout << "How many products do you want to add? ";
+				cin >> products;
+
+				for(int i = 0; i < products; i++) {
+					cout << "Enter product name: ";
+					cin.ignore();
+					getline(cin, name);
+
+					cout << "Enter product ID: ";
+					cin >> id;
+
+					cout << "Enter product Quantity: ";
+					cin >> quantity;
+
+					cout << "Enter product Price: ";
+					cin >> price;
+					myInventory.addProduct(name, id, quantity, price);
+
+				}//end of for loop
+
+				break;
+
+			case 2:
+				cout << "Enter product ID to remove: ";
+				cin >> id;
+				myInventory.removeProduct(id);
+				break;
+
+			case 3:
+				cout << "Enter product ID to Update: ";
+				cin >> id;
+
+				cout << "Enter new Quantity: ";
+				cin >> quantity;
+
+				cout << "Enter new Price: ";
+				cin >> price;
+
+				myInventory.updateProduct(id, quantity, price);
+				break;
+
+			case 4:
+				myInventory.displayInventory();
+				break;
+
+			case 0:
+				cout << "Exit Program";
+				break;
+
+		}//end of switch statement
+		cout << endl;
+	}
+
+	while(choice != 0);
+	return 0;
+
 }//end of main function
